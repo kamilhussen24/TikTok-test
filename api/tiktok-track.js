@@ -21,7 +21,7 @@ export default async function handler(req, res) {
   const TIKTOK_ACCESS_TOKEN = process.env.TIKTOK_ACCESS_TOKEN;
 
   if (!TIKTOK_PIXEL_ID || !TIKTOK_ACCESS_TOKEN) {
-    console.error('Error: Missing environment variables - TIKTOK_PIXEL_ID:', !!TIKTOK_PIXEL_ID, 'TIKTOK_ACCESS_TOKEN:', !!TIKTOK_ACCESS_TOKEN);
+    console.error('Error: Missing environment variables');
     return res.status(500).json({ error: 'Server configuration error' });
   }
 
@@ -31,33 +31,38 @@ export default async function handler(req, res) {
 
   console.log('Client IP:', clientIp);
   console.log('User Agent:', userAgent);
-  console.log('Referer:', referer);
 
-  const eventPayload = {
-    event_id: eventId || `${eventName}_${Date.now()}_${Math.random().toString(36).substr(2, 8)}`,
-    event_name: eventName,
-    event_time: Math.floor(Date.now() / 1000),
-    action_source: 'website',
-    user_data: {
-      ip: clientIp,
-      user_agent: userAgent,
-      ttp: userData.ttp || '',
-      ttclid: userData.ttclid || ''
-    },
-    custom_data: {
-      ...customData,
-      referer: referer
-    }
+  // CORRECT: Pixel ID goes in body, not in URL
+  const apiUrl = 'https://business-api.tiktok.com/open_api/v1.3/pixel/event/';
+
+  const requestBody = {
+    pixel_code: TIKTOK_PIXEL_ID,
+    partner_name: 'kdex',
+    events: [
+      {
+        event_id: eventId || `${eventName}_${Date.now()}_${Math.random().toString(36).substr(2, 8)}`,
+        event_name: eventName,
+        event_time: Math.floor(Date.now() / 1000),
+        action_source: 'website',
+        user_data: {
+          ip: clientIp,
+          user_agent: userAgent,
+          ttp: userData.ttp || '',
+          ttclid: userData.ttclid || ''
+        },
+        custom_data: {
+          ...customData,
+          referer: referer
+        }
+      }
+    ]
   };
-
-  const apiUrl = `https://business-api.tiktok.com/open_api/v1.3/pixel/${TIKTOK_PIXEL_ID}/event/`;
 
   console.log('Sending to TikTok:', JSON.stringify({
     url: apiUrl,
-    eventId: eventPayload.event_id,
-    eventName: eventName,
-    hasTtp: !!userData.ttp,
-    hasTtclid: !!userData.ttclid
+    pixelId: TIKTOK_PIXEL_ID,
+    eventId: requestBody.events[0].event_id,
+    eventName: eventName
   }, null, 2));
 
   try {
@@ -67,10 +72,7 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json',
         'Access-Token': TIKTOK_ACCESS_TOKEN
       },
-      body: JSON.stringify({
-        events: [eventPayload],
-        partner_name: 'kdex'
-      })
+      body: JSON.stringify(requestBody)
     });
 
     const responseText = await response.text();
