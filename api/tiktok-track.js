@@ -33,7 +33,7 @@ export default async function handler(req, res) {
   console.log('User Agent:', userAgent);
 
   // CORRECT: Pixel ID goes in body, not in URL
-  const apiUrl = 'https://business-api.tiktok.com/open_api/v1.3/pixel/event/';
+  const apiUrl = 'https://business-api.tiktok.com/open_api/v1.3/event/track/';
 
   const requestBody = {
     pixel_code: TIKTOK_PIXEL_ID,
