@@ -14,7 +14,7 @@ export default async function handler(req, res) {
   const TIKTOK_ACCESS_TOKEN = process.env.TIKTOK_ACCESS_TOKEN;
 
   if (!TIKTOK_PIXEL_ID || !TIKTOK_ACCESS_TOKEN) {
-    console.error('Missing TikTok env vars');
+    console.error('Missing TikTok env vars: TIKTOK_PIXEL_ID, TIKTOK_ACCESS_TOKEN');
     return res.status(500).json({ error: 'Server configuration error' });
   }
 
@@ -39,7 +39,6 @@ export default async function handler(req, res) {
     }
   };
 
-  // TikTok API URL - Note: Check if version is correct
   const apiUrl = `https://business-api.tiktok.com/open_api/v1.3/pixel/${TIKTOK_PIXEL_ID}/event/`;
 
   try {
@@ -55,7 +54,6 @@ export default async function handler(req, res) {
       })
     });
 
-    // TikTok API sometimes returns HTML or plain text error
     const responseText = await response.text();
     let result;
     
@@ -66,10 +64,14 @@ export default async function handler(req, res) {
     }
 
     console.log('=== TIKTOK CAPI DEBUG ===');
-    console.log('Status:', response.status);
-    console.log('StatusText:', response.statusText);
-    console.log('Raw Response:', responseText.substring(0, 500));
-    console.log('Event Payload:', JSON.stringify(eventPayload, null, 2));
+    console.log(JSON.stringify({
+      eventId: eventId,
+      eventName: eventName,
+      status: response.status,
+      statusText: response.statusText,
+      rawResponse: responseText.substring(0, 500),
+      timestamp: new Date().toISOString()
+    }, null, 2));
 
     if (!response.ok) {
       return res.status(response.status).json({ 
