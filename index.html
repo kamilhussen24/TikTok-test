@@ -270,10 +270,7 @@ ttq.page();
     const btn = document.getElementById('joinTelegramBtn');
     const TELEGRAM_URL = "https://t.me/+RyqOTZYeN-k5YzU1";
 
-    if (!btn) {
-        console.log('Button not found');
-        return;
-    }
+    if (!btn) return;
 
     function getTtp() {
         let match = document.cookie.match('_ttp=([^;]+)');
@@ -283,57 +280,55 @@ ttq.page();
     function getTtclid() {
         let urlParams = new URLSearchParams(window.location.search);
         let ttclid = urlParams.get('ttclid');
-        if (ttclid) {
-            return ttclid;
-        }
+        if (ttclid) return ttclid;
+
         let cookieMatch = document.cookie.match('_ttclid=([^;]+)');
         return cookieMatch ? cookieMatch[1] : '';
     }
 
     btn.addEventListener('click', async function() {
         const eventId = 'Join_' + Date.now() + '_' + Math.random().toString(36).substr(2, 8);
+
         const ttp = getTtp();
         const ttclid = getTtclid();
 
-        console.log('Button clicked - EventId:', eventId);
-        console.log('TTP:', ttp);
-        console.log('TTCLID:', ttclid);
+        console.log('EventId:', eventId);
 
+        // ✅ FIXED (dedup supported)
         if (typeof ttq === 'function') {
-            console.log('TikTok Pixel found, sending event');
-            ttq.track('CustomEvent', {
-                event_name: 'Join',
-                action: 'click',
+            ttq.track('Join', {
                 event_id: eventId
             });
-        } else {
-            console.log('TikTok Pixel not found');
         }
 
+        // ✅ Send to CAPI
         try {
-            console.log('Sending to TikTok CAPI...');
-            const response = await fetch('/api/tiktok-track', {
+            await fetch('/api/tiktok-track', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
                     eventId: eventId,
                     eventName: 'Join',
-                    customData: { action: 'click', source: 'group_access' },
-                    userData: { ttp: ttp, ttclid: ttclid }
+                    customData: {
+                        action: 'click',
+                        source: 'group_access'
+                    },
+                    userData: {
+                        ttp: ttp,
+                        ttclid: ttclid
+                    }
                 })
             });
-            const data = await response.json();
-            console.log('TikTok CAPI response:', response.status, data);
-        } catch (err) {
-            console.warn('TikTok CAPI error:', err);
+        } catch (e) {
+            console.warn('CAPI error:', e);
         }
 
-        setTimeout(function() {
+        // ✅ Redirect
+        setTimeout(() => {
             window.open(TELEGRAM_URL, '_blank');
         }, 200);
     });
 })();
 </script>
-        
 </body>
 </html>
