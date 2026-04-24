@@ -266,6 +266,7 @@ ttq.page();
     </div>
 </div>
 
+// Frontend script - only TikTok
 <script>
 (function() {
     const btn = document.getElementById('joinTelegramBtn');
@@ -273,35 +274,27 @@ ttq.page();
 
     if (!btn) return;
 
-    function getFbp() {
-        let match = document.cookie.match('_fbp=([^;]+)');
+    function getTtp() {
+        let match = document.cookie.match('_ttp=([^;]+)');
         return match ? match[1] : '';
     }
 
-    function getFbc() {
+    function getTtclid() {
         let urlParams = new URLSearchParams(window.location.search);
-        let fbclid = urlParams.get('fbclid');
-        if (fbclid) {
-            return 'fb.1.' + Date.now() + '.' + fbclid;
+        let ttclid = urlParams.get('ttclid');
+        if (ttclid) {
+            return ttclid;
         }
-        let cookieMatch = document.cookie.match('_fbc=([^;]+)');
+        let cookieMatch = document.cookie.match('_ttclid=([^;]+)');
         return cookieMatch ? cookieMatch[1] : '';
     }
 
     btn.addEventListener('click', async function() {
         const eventId = 'Join_' + Date.now() + '_' + Math.random().toString(36).substr(2, 8);
-        const fbp = getFbp();
-        const fbc = getFbc();
+        const ttp = getTtp();
+        const ttclid = getTtclid();
 
-        // Meta Pixel Event
-        if (typeof fbq === 'function') {
-            fbq('trackCustom', 'Join', {
-                action: 'click',
-                event_id: eventId
-            });
-        }
-
-        // TikTok Pixel Event
+        // TikTok Pixel Event (Browser)
         if (typeof ttq === 'function') {
             ttq.track('CustomEvent', {
                 event_name: 'Join',
@@ -310,23 +303,7 @@ ttq.page();
             });
         }
 
-        // Meta CAPI (Server-side)
-        try {
-            await fetch('/api/track', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    eventId: eventId,
-                    eventName: 'Join',
-                    customData: { action: 'click', source: 'group_access' },
-                    userData: { fbp: fbp, fbc: fbc }
-                })
-            });
-        } catch (err) {
-            console.warn('Meta CAPI error:', err);
-        }
-
-        // TikTok Events API (Server-side) - Optional
+        // TikTok Events API (Server-side)
         try {
             await fetch('/api/tiktok-track', {
                 method: 'POST',
@@ -335,7 +312,7 @@ ttq.page();
                     eventId: eventId,
                     eventName: 'Join',
                     customData: { action: 'click', source: 'group_access' },
-                    userData: { ttp: fbp, ttclid: fbc }
+                    userData: { ttp: ttp, ttclid: ttclid }
                 })
             });
         } catch (err) {
@@ -348,5 +325,6 @@ ttq.page();
     });
 })();
 </script>
+        
 </body>
 </html>
