@@ -270,7 +270,10 @@ ttq.page();
     const btn = document.getElementById('joinTelegramBtn');
     const TELEGRAM_URL = "https://t.me/+RyqOTZYeN-k5YzU1";
 
-    if (!btn) return;
+    if (!btn) {
+        console.log('Button not found');
+        return;
+    }
 
     function getTtp() {
         let match = document.cookie.match('_ttp=([^;]+)');
@@ -292,18 +295,24 @@ ttq.page();
         const ttp = getTtp();
         const ttclid = getTtclid();
 
-        // TikTok Pixel Event (Browser)
+        console.log('Button clicked - EventId:', eventId);
+        console.log('TTP:', ttp);
+        console.log('TTCLID:', ttclid);
+
         if (typeof ttq === 'function') {
+            console.log('TikTok Pixel found, sending event');
             ttq.track('CustomEvent', {
                 event_name: 'Join',
                 action: 'click',
                 event_id: eventId
             });
+        } else {
+            console.log('TikTok Pixel not found');
         }
 
-        // TikTok Events API (Server-side)
         try {
-            await fetch('/api/track', {
+            console.log('Sending to TikTok CAPI...');
+            const response = await fetch('/api/tiktok-track', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -313,6 +322,8 @@ ttq.page();
                     userData: { ttp: ttp, ttclid: ttclid }
                 })
             });
+            const data = await response.json();
+            console.log('TikTok CAPI response:', response.status, data);
         } catch (err) {
             console.warn('TikTok CAPI error:', err);
         }
