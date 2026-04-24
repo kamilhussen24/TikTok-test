@@ -14,7 +14,7 @@ export default async function handler(req, res) {
   const TIKTOK_ACCESS_TOKEN = process.env.TIKTOK_ACCESS_TOKEN;
 
   if (!TIKTOK_PIXEL_ID || !TIKTOK_ACCESS_TOKEN) {
-    console.error('Missing TikTok env vars: TIKTOK_PIXEL_ID, TIKTOK_ACCESS_TOKEN');
+    console.error('Missing TikTok env vars');
     return res.status(500).json({ error: 'Server configuration error' });
   }
 
@@ -39,6 +39,7 @@ export default async function handler(req, res) {
     }
   };
 
+  // TikTok API URL - Note: Check if version is correct
   const apiUrl = `https://business-api.tiktok.com/open_api/v1.3/pixel/${TIKTOK_PIXEL_ID}/event/`;
 
   try {
@@ -54,31 +55,33 @@ export default async function handler(req, res) {
       })
     });
 
-    const result = await response.json();
+    // TikTok API sometimes returns HTML or plain text error
+    const responseText = await response.text();
+    let result;
+    
+    try {
+      result = JSON.parse(responseText);
+    } catch (e) {
+      result = { error: 'Invalid JSON response', rawResponse: responseText };
+    }
 
-    console.log('=== TIKTOK CAPI EVENT SENT ===');
-    console.log(JSON.stringify({
-      eventId: eventId,
-      eventName: eventName,
-      status: response.status,
-      statusText: response.statusText,
-      result: result,
-      timestamp: new Date().toISOString(),
-      ip: clientIp,
-      userAgent: userAgent,
-      hasTtp: !!userData.ttp,
-      hasTtclid: !!userData.ttclid
-    }, null, 2));
+    console.log('=== TIKTOK CAPI DEBUG ===');
+    console.log('Status:', response.status);
+    console.log('StatusText:', response.statusText);
+    console.log('Raw Response:', responseText.substring(0, 500));
+    console.log('Event Payload:', JSON.stringify(eventPayload, null, 2));
 
     if (!response.ok) {
-      console.error('TikTok CAPI ERROR:', JSON.stringify(result, null, 2));
-      return res.status(response.status).json({ error: result });
+      return res.status(response.status).json({ 
+        error: 'TikTok API error', 
+        status: response.status,
+        details: result 
+      });
     }
 
     return res.status(200).json({ success: true, result: result });
   } catch (error) {
-    console.error('TikTok CAPI EXCEPTION:', error.message);
-    console.error(error.stack);
+    console.error('TikTok CAPI Exception:', error.message);
     return res.status(500).json({ error: error.message });
   }
 }
