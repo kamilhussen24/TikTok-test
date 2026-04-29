@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
 
-<title>Minhaz Community - Join Now</title>
+<title>Join Now Today</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
@@ -63,29 +63,17 @@ body{font-family:sans-serif;background:#fff;margin:0}
 }
 
 @keyframes pulse{
-0%{box-shadow:0 0 0 0 rgba(0,136,204,0.5);}
-70%{box-shadow:0 0 0 15px rgba(0,136,204,0);}
-100%{box-shadow:0 0 0 0 rgba(0,136,204,0);}
+0%{box-shadow:0 0 0 0 rgba(254,44,85,0.5);}
+70%{box-shadow:0 0 0 15px rgba(254,44,85,0);}
+100%{box-shadow:0 0 0 0 rgba(254,44,85,0);}
 }
 
-.group-title{font-size:26px;font-weight:bold;margin:20px 0 10px}
+.group-title{font-size:26px;font-weight:bold;margin-top:15px}
 .badge{background:#f2f2f2;padding:8px 15px;border-radius:20px;display:inline-block;margin:10px 0}
 .features{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
-.feat{background:#f8f8f8;padding:12px;border-radius:12px;font-size:14px}
+.feat{background:#f8f8f8;padding:10px;border-radius:12px;font-size:14px}
 
-.disclaimer{
-    background:#fff3cd;
-    border:1px solid #ffeaa7;
-    padding:15px;
-    border-radius:12px;
-    font-size:13px;
-    margin:20px 0;
-    text-align:left;
-    line-height:1.5;
-}
-
-.footer{margin-top:30px;font-size:12px;color:#666;line-height:1.6}
-.footer a{color:#0088cc;text-decoration:none}
+.footer{margin-top:20px;font-size:13px;color:#555}
 </style>
 </head>
 
@@ -96,25 +84,24 @@ body{font-family:sans-serif;background:#fff;margin:0}
 <div style="font-size:30px">👇</div>
 
 <button id="joinBtn" class="join-btn">
-<i class="fas fa-bolt"></i> গ্রুপে জয়েন করুন
+<i class="fas fa-bolt"></i> JOIN NOW
 </button>
 
-<div class="group-title">Minhaz Community</div>
+<div class="group-title">Minhaz VIP Zone</div>
 
-<div class="badge">5,200+ সদস্য</div>
+<div class="badge">5,200+ Members</div>
 
 <div class="features">
-<div class="feat">📈 মার্কেট আপডেট</div>
-<div class="feat">🗣️ কমিউনিটি ডিসকাশন</div>
-<div class="feat">📢 রেগুলার নোটিফিকেশন</div>
-<div class="feat">💡 শেয়ার্ড ইনসাইটস</div>
+<div class="feat">📈 Live Updates</div>
+<div class="feat">⏰ 24/7 Alerts</div>
+<div class="feat">🔒 VIP Access</div>
+<div class="feat">💎 Premium Tips</div>
 </div>
 
 <div class="disclaimer">
-<strong>গুরুত্বপূর্ণ ডিসক্লেইমার:</strong><br>
-এখানে শেয়ার করা তথ্য শুধুমাত্র শিক্ষামূলক ও তথ্যমূলক উদ্দেশ্যে। এটি কোনো আর্থিক পরামর্শ নয়। 
-ট্রেডিং/ইনভেস্টমেন্টে ঝুঁকি আছে। আপনার নিজস্ব গবেষণা করুন এবং প্রয়োজনে পেশাদার উপদেষ্টার সাথে কথা বলুন। 
-অতীতের পারফরম্যান্স ভবিষ্যতের গ্যারান্টি নয়।
+<strong>Important Disclaimer:</strong><br>
+The information shared here is for educational and informational purposes only. It is not financial advice. Do your own research and speak to a professional advisor if necessary. 
+Past performance is not a guarantee of future performance.
 </div>
 
 <div class="footer">
@@ -126,20 +113,26 @@ Premium Access Platform<br>
 
 </div>
 
+</div>
+
 <script>
 const btn = document.getElementById("joinBtn");
 const TARGET_URL = "https://t.me/+xzh7HwOAsBJmMDk1";
 
 btn.addEventListener("click", function(){
 
+    // TikTok Event
     if(typeof ttq !== "undefined"){
-        ttq.track("ClickButton", { content_name: "Join Button" });
+        ttq.track("ClickButton", {
+            content_name: "Join Button"
+        });
+
         ttq.track("CompleteRegistration");
     }
 
     setTimeout(()=>{
         window.location.href = TARGET_URL;
-    }, 150);
+    },150);
 });
 </script>
 
