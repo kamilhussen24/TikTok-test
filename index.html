@@ -1,334 +1,147 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>Join Now Today</title>
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- TikTok Pixel Code Start -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+
+<title>Minhaz Community - Join Now</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<!-- TikTok Pixel -->
 <script>
-!function(w,d,t){w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"];ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e};ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var i=document.createElement("script");i.type="text/javascript",i.async=!0,i.src=r+"?sdkid="+e+"&lib="+t;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(i,a)};
-ttq.load('D7LHTPJC77U44OJIJPV0');
-ttq.page();
-}(window,document,'ttq');
+!function (w, d, t) {
+    w.TiktokAnalyticsObject = t;
+    var ttq = w[t] = w[t] || [];
+    ttq.methods = ["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"];
+
+    ttq.setAndDefer = function (t, e) {
+        t[e] = function () {
+            t.push([e].concat(Array.prototype.slice.call(arguments, 0)))
+        }
+    };
+
+    for (var i = 0; i < ttq.methods.length; i++) {
+        ttq.setAndDefer(ttq, ttq.methods[i]);
+    }
+
+    ttq.load = function (e) {
+        var r = "https://analytics.tiktok.com/i18n/pixel/events.js";
+        var s = document.createElement("script");
+        s.async = true;
+        s.src = r + "?sdkid=" + e;
+        var x = document.getElementsByTagName("script")[0];
+        x.parentNode.insertBefore(s, x);
+    };
+
+    ttq.load('D7OPFS3C77U8CJLLAFR0');
+    ttq.page();
+
+}(window, document, 'ttq');
 </script>
-<!-- TikTok Pixel Code End -->
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
 
-        body {
-            background: #ffffff;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.4;
-            padding: 0;
-        }
+<style>
+body{font-family:sans-serif;background:#fff;margin:0}
+.main{max-width:500px;margin:auto;padding:20px;text-align:center}
 
-        .main {
-            max-width: 500px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+.join-btn{
+    background: linear-gradient(135deg, #0088cc, #00a2ff);
+    color: #fff;
+    padding: 15px 28px;
+    border: none;
+    border-radius: 60px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    animation: pulse 1.6s infinite;
+    box-shadow: 0 10px 25px rgba(0,136,204,0.35);
+    transition: 0.2s;
+}
 
-        .card {
-            background: white;
-            padding: 20px 0 24px 0;
-            text-align: center;
-        }
-        
-        .join-btn {
-            background: linear-gradient(135deg, #0088cc 0%, #00a2e8 100%);
-            border: none;
-            padding: 14px 28px;
-            border-radius: 60px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: white;
-            cursor: pointer;
-            width: auto;
-            min-width: 220px;
-            margin: 0 0 20px 0;
-            transition: all 0.2s ease;
-            box-shadow: 0 0 0 0 rgba(0, 136, 204, 0.5);
-            animation: btnGlowPulse 1.5s ease-in-out infinite;
-        }
+.join-btn:hover{
+    transform: scale(1.03);
+}
 
-        .join-btn i {
-            font-size: 1.5rem;
-        }
+@keyframes pulse{
+0%{box-shadow:0 0 0 0 rgba(0,136,204,0.5);}
+70%{box-shadow:0 0 0 15px rgba(0,136,204,0);}
+100%{box-shadow:0 0 0 0 rgba(0,136,204,0);}
+}
 
-        .join-btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 20px rgba(0, 136, 204, 0.7);
-        }
+.group-title{font-size:26px;font-weight:bold;margin:20px 0 10px}
+.badge{background:#f2f2f2;padding:8px 15px;border-radius:20px;display:inline-block;margin:10px 0}
+.features{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+.feat{background:#f8f8f8;padding:12px;border-radius:12px;font-size:14px}
 
-        .join-btn:active {
-            transform: scale(0.97);
-            transition: 0.05s;
-        }
+.disclaimer{
+    background:#fff3cd;
+    border:1px solid #ffeaa7;
+    padding:15px;
+    border-radius:12px;
+    font-size:13px;
+    margin:20px 0;
+    text-align:left;
+    line-height:1.5;
+}
 
-        @keyframes btnGlowPulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(0, 136, 204, 0.4);
-            }
-            70% {
-                box-shadow: 0 0 0 12px rgba(0, 136, 204, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(0, 136, 204, 0);
-            }
-        }
-
-        
-        .pointer-icon {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            margin: 0 0 20px 0;
-            animation: fingerBounce 0.8s ease-in-out infinite;
-        }
-
-        .pointer-icon i {
-            font-size: 1.8rem;
-            color: #0088cc;
-        }
-
-        .pointer-icon span {
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: #1e2a3e;
-        }
-
-        @keyframes fingerBounce {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-6px);
-            }
-        }
-
-        /* গ্রুপের নাম ও সদস্য সংখ্যা */
-        .group-title {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: #0a0c12;
-            margin: 10px 0 8px 0;
-            letter-spacing: -0.3px;
-        }
-
-        .member-badge {
-            background: #f0f2f5;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 18px;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: #1e2a3e;
-            margin-bottom: 24px;
-        }
-
-        .member-badge i {
-            color: #0088cc;
-        }
-        
-        .features {
-            background: #f8fafd;
-            border-radius: 28px;
-            padding: 20px 16px;
-            margin: 16px 0 28px;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 18px 12px;
-        }
-
-        .feat-item {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            gap: 12px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: #1e293b;
-        }
-
-        .feat-item i {
-            font-size: 1.2rem;
-            color: #0088cc;
-            background: white;
-            width: 36px;
-            height: 36px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            flex-shrink: 0;
-        }
-
-        .feat-item span {
-            display: inline-block;
-            text-align: left;
-            line-height: 1.3;
-        }
-
-        /* ফুটার */
-        .footer {
-            margin-top: 12px;
-            padding-top: 18px;
-            border-top: 1px solid #eef2f6;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 12px;
-            font-size: 0.85rem;
-            color: #5b6e8c;
-        }
-
-        .footer a {
-            text-decoration: none;
-            background: #eef3fc;
-            padding: 8px 18px;
-            border-radius: 40px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: #0088cc;
-            font-weight: 600;
-            transition: 0.2s;
-        }
-
-        .footer a:active {
-            background: #e2eaf3;
-            transform: scale(0.96);
-        }
-    </style>
+.footer{margin-top:30px;font-size:12px;color:#666;line-height:1.6}
+.footer a{color:#0088cc;text-decoration:none}
+</style>
 </head>
+
 <body>
+
 <div class="main">
-    <div class="card">
-    	 <div class="pointer-icon">
-            <i class="fas fa-arrow-down"></i>
-        </div>
-        
-        <button id="joinTelegramBtn" class="join-btn">
-            <i class="fab fa-telegram-plane"></i> জয়েন গ্রুপ
-        </button>
-        
-        <div class="pointer-icon">
-            <i class="fas fa-hand-pointer"></i>
-        </div>
-        
-        <div class="group-title">
-            ARIYANS
-        </div>
-        <div class="member-badge">
-            <i class="fas fa-users"></i> ৫,২০০+ সদস্য
-        </div>
-        
-        <div class="features">
-            <div class="feat-item">
-                <i class="fas fa-chart-line"></i>
-                <span>লাইভ ক্লাস</span>
-            </div>
-            <div class="feat-item">
-                <i class="fas fa-clock"></i>
-                <span>২৪/৭ আপডেট</span>
-            </div>
-            <div class="feat-item">
-                <i class="fas fa-lock"></i>
-                <span>ভিআইপি গ্রুপ</span>
-            </div>
-            <div class="feat-item">
-                <i class="fas fa-gem"></i>
-                <span>নতুন টিপস</span>
-            </div>
-        </div>
-        
-        <div class="footer">
-            
-            <a href="https://t.me/kdexupdate" target="_blank" rel="noopener noreferrer">
-                <i class="fab fa-telegram"></i> Ads By KDex
-            </a>
-        </div>
-    </div>
+
+<div style="font-size:30px">👇</div>
+
+<button id="joinBtn" class="join-btn">
+<i class="fas fa-bolt"></i> গ্রুপে জয়েন করুন
+</button>
+
+<div class="group-title">Minhaz Community</div>
+
+<div class="badge">5,200+ সদস্য</div>
+
+<div class="features">
+<div class="feat">📈 মার্কেট আপডেট</div>
+<div class="feat">🗣️ কমিউনিটি ডিসকাশন</div>
+<div class="feat">📢 রেগুলার নোটিফিকেশন</div>
+<div class="feat">💡 শেয়ার্ড ইনসাইটস</div>
 </div>
+
+<div class="disclaimer">
+<strong>গুরুত্বপূর্ণ ডিসক্লেইমার:</strong><br>
+এখানে শেয়ার করা তথ্য শুধুমাত্র শিক্ষামূলক ও তথ্যমূলক উদ্দেশ্যে। এটি কোনো আর্থিক পরামর্শ নয়। 
+ট্রেডিং/ইনভেস্টমেন্টে ঝুঁকি আছে। আপনার নিজস্ব গবেষণা করুন এবং প্রয়োজনে পেশাদার উপদেষ্টার সাথে কথা বলুন। 
+অতীতের পারফরম্যান্স ভবিষ্যতের গ্যারান্টি নয়।
+</div>
+
+<div class="footer">
+Premium Access Platform<br>
+<a href="https://yourdomain.com/privacy" target="_blank">Privacy Policy</a> | 
+<a href="https://yourdomain.com/terms" target="_blank">Terms & Conditions</a><br>
+© 2026 Minhaz Community • All Rights Reserved
+</div>
+
+</div>
+
 <script>
-(function() {
-    const btn = document.getElementById('joinTelegramBtn');
-    const TELEGRAM_URL = "https://t.me/+RyqOTZYeN-k5YzU1";
+const btn = document.getElementById("joinBtn");
+const TARGET_URL = "https://t.me/+xzh7HwOAsBJmMDk1";
 
-    if (!btn) return;
+btn.addEventListener("click", function(){
 
-    function getTtp() {
-        let match = document.cookie.match('_ttp=([^;]+)');
-        return match ? match[1] : '';
+    if(typeof ttq !== "undefined"){
+        ttq.track("ClickButton", { content_name: "Join Button" });
+        ttq.track("CompleteRegistration");
     }
 
-    function getTtclid() {
-        let urlParams = new URLSearchParams(window.location.search);
-        let ttclid = urlParams.get('ttclid');
-        if (ttclid) return ttclid;
-
-        let cookieMatch = document.cookie.match('_ttclid=([^;]+)');
-        return cookieMatch ? cookieMatch[1] : '';
-    }
-
-    btn.addEventListener('click', async function() {
-        const eventId = 'Join_' + Date.now() + '_' + Math.random().toString(36).substr(2, 8);
-
-        const ttp = getTtp();
-        const ttclid = getTtclid();
-
-        console.log('EventId:', eventId);
-
-        // ✅ FIXED (dedup supported)
-        if (typeof ttq === 'function') {
-            ttq.track('Join', {
-                event_id: eventId
-            });
-        }
-
-        // ✅ Send to CAPI
-        try {
-            await fetch('/api/tiktok-track', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    eventId: eventId,
-                    eventName: 'Join',
-                    customData: {
-                        action: 'click',
-                        source: 'group_access'
-                    },
-                    userData: {
-                        ttp: ttp,
-                        ttclid: ttclid
-                    }
-                })
-            });
-        } catch (e) {
-            console.warn('CAPI error:', e);
-        }
-
-        // ✅ Redirect
-        setTimeout(() => {
-            window.open(TELEGRAM_URL, '_blank');
-        }, 200);
-    });
-})();
+    setTimeout(()=>{
+        window.location.href = TARGET_URL;
+    }, 150);
+});
 </script>
+
 </body>
 </html>
